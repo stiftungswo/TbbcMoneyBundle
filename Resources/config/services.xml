@@ -41,6 +41,10 @@
         <service id="tbbc_money.formatter.money_formatter" class="%tbbc_money.formatter.money_formatter.class%">
             <argument>%tbbc_money.decimals%</argument>
         </service>
+        <!-- JMS Serializer Handler -->
+        <service id="money_jms_handler" class="Tbbc\MoneyBundle\Serializer\MoneySerializer">
+            <tag name="jms_serializer.subscribing_handler"/>
+        </service>
     </services>
 
 </container>

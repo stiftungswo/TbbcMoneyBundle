@@ -28,9 +28,14 @@ class MoneyType extends Type
  
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        if (is_null($value)) {
+        if (is_null($value) || empty($value)) {
             return null;
         }
+
+	    if(is_numeric($value))
+	    {
+		    return Money::CHF($value);
+	    }
  
         list($currency, $amount) = explode(' ', $value, 2);
  

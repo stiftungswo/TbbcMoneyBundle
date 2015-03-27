@@ -49,6 +49,9 @@ class MoneyExtension extends \Twig_Extension
             new \Twig_SimpleFilter('money_format_amount', array($this->moneyFormatter, 'formatAmount')),
             new \Twig_SimpleFilter('money_format_currency', array($this->moneyFormatter, 'formatCurrency')),
             new \Twig_SimpleFilter('money_as_float', array($this->moneyFormatter, 'asFloat')),
+	        new \Twig_SimpleFilter('money_round_to5', array($this->moneyFormatter, 'roundTo5')),
+	        new \Twig_SimpleFilter('money_get_decimals', array($this->moneyFormatter, 'getDecimals')),
+	        new \Twig_SimpleFilter('money_get_digits', array($this->moneyFormatter, 'getDigits')),
             new \Twig_SimpleFilter('money_get_currency', array($this->moneyFormatter, 'getCurrency')),
             new \Twig_SimpleFilter('money_convert', array($this, 'convert')),
         );

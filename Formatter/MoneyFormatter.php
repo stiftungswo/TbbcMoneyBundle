@@ -104,6 +104,43 @@ class MoneyFormatter
         return $amount;
     }
 
+	/**
+	 * Round the last Decimal of given Money Object to either 0 or 5
+	 * @param Money $money
+	 *
+	 * @return mixed|string
+	 */
+	public function roundTo5(Money $money)
+	{
+		return $money->roundTo5();
+	}
+
+	public function getDigits(Money $money)
+	{
+		$sign = "(?P<sign>[-\+])?";
+		$digits = "(?P<digits>\d*)";
+		$separator = "(?P<separator>[.,])?";
+		$decimals = "(?P<decimal1>\d)?(?P<decimal2>\d)?";
+		$pattern = "/^".$sign.$digits.$separator.$decimals."$/";
+
+		preg_match($pattern, trim((string)$this->asFloat($money)), $matches);
+		return $matches['digits'];
+	}
+
+	public function getDecimals(Money $money)
+	{
+		$sign = "(?P<sign>[-\+])?";
+		$digits = "(?P<digits>\d*)";
+		$separator = "(?P<separator>[.,])?";
+		$decimals = "(?P<decimal1>\d)?(?P<decimal2>\d)?";
+		$pattern = "/^".$sign.$digits.$separator.$decimals."$/";
+
+		preg_match($pattern, trim((string)$this->asFloat($money)), $matches);
+		$units = isset($matches['decimal1']) ? $matches['decimal1'] : "0";
+		$units .= isset($matches['decimal2']) ? $matches['decimal2'] : "0";
+		return $units;
+	}
+
     /**
      * Formats only the currency part of the given Money object
      *
