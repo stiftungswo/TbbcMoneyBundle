@@ -37,6 +37,9 @@ class SimpleMoneyToArrayTransformer
      */
     public function reverseTransform($value)
     {
+	    if(!is_array($value)){
+		    $value = array('tbbc_amount' => $value);
+	    }
         if (is_array($value)) {
             $value["tbbc_currency"] = new Currency($this->pairManager->getReferenceCurrencyCode());
         }
