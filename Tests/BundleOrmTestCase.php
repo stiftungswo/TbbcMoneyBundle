@@ -1,7 +1,7 @@
 <?php
 namespace Tbbc\MoneyBundle\Tests;
 
-use Tbbc\MoneyBundle\Tests\SchemaSetupListener;
+use Doctrine\Tests\OrmTestCase;
 
 use Doctrine\Common\EventManager;
 use Doctrine\Common\Cache\ArrayCache;
@@ -9,8 +9,6 @@ use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver;
-
-use DoctrineExtensions\PHPUnit\OrmTestCase;
 
 class BundleOrmTestCase
     extends OrmTestCase
