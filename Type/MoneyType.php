@@ -53,7 +53,7 @@ class MoneyType extends Type
 
 	    if(is_numeric($value))
 	    {
-		    return Money::CHF($value);
+		    return Money::CHF((int)str_replace(".", "", (string)$value));
 	    }
 
         list($currency, $amount) = explode(' ', $value, 2);
