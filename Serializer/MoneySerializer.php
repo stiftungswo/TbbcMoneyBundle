@@ -11,7 +11,6 @@ namespace Tbbc\MoneyBundle\Serializer;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
-use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\VisitorInterface;
 use JMS\Serializer\XmlSerializationVisitor;
 use Money\Money;
@@ -56,8 +55,8 @@ class MoneySerializer implements SubscribingHandlerInterface
 	public function serializeMoney(VisitorInterface $visitor, Money $money, array $type, Context $context)
 	{
 		if ($visitor instanceof XmlSerializationVisitor) {
-			return $visitor->visitSimpleString($money->format(), $type, $context);
+			return $visitor->visitSimpleString(number_format(($money->getAmount()) / 100, 2, '.', ""), $type, $context);
 		}
-		return $visitor->visitString($money->format(), $type, $context);
+		return $visitor->visitString(number_format(($money->getAmount()) / 100, 2, '.', ""), $type, $context);
 	}
 }

@@ -1,13 +1,13 @@
 TbbcMoneyBundle
 ===============
 
-[![Build Status](https://travis-ci.org/TheBigBrainsCompany/TbbcMoneyBundle.png?branch=master)](https://travis-ci.org/TheBigBrainsCompany/TbbcMoneyBundle)
-[![Symfony](https://img.shields.io/badge/symfony-~2.8%7C~3.0-green.svg)]()
-[![Downloads](https://img.shields.io/packagist/dt/tbbc/money-bundle.svg)]()
-[![license](https://img.shields.io/github/license/TheBigBrainsCompany/TbbcMoneyBundle.svg)]()
-
-
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/cb69e820-135b-4906-93fd-7921ba46a6e6/big.png)](https://insight.sensiolabs.com/projects/cb69e820-135b-4906-93fd-7921ba46a6e6)
+Fork by Stiftung Wirtschaft & Ökologie
+-----------
+Changes:
+* Values with the FormType "SimpleMoney" can be passed as string instead of an array construct (usually `array('tbbc_amount' => '10.00')`)
+* Two new Twig filters: get_digits and get_decimals.
+* If values in a money formatted column got saved as float, convert it to an integer when value gets fetched from database.
+* Added custom JMS serializer for money type
 
 This bundle is used to integrate the [Money library from mathiasverraes](https://github.com/mathiasverraes/money) into
 a Symfony project.

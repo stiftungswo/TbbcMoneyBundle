@@ -103,17 +103,6 @@ class MoneyFormatter
         return $amount;
     }
 
-	/**
-	 * Round the last Decimal of given Money Object to either 0 or 5
-	 * @param Money $money
-	 *
-	 * @return mixed|string
-	 */
-	public function roundTo5(Money $money)
-	{
-		return $money->roundTo5();
-	}
-
 	public function getDigits(Money $money)
 	{
 		$sign = "(?P<sign>[-\+])?";
