@@ -45,8 +45,8 @@ class MoneySerializer implements SubscribingHandlerInterface
 			),
 			array(
 				'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
-				'type' => 'Money',
-				'format' => 'xml',
+				'type' => 'Money\Money',
+				'format' => 'json',
 				'method' => 'serializeMoney',
 			)
 		);
@@ -54,9 +54,6 @@ class MoneySerializer implements SubscribingHandlerInterface
 
 	public function serializeMoney(VisitorInterface $visitor, Money $money, array $type, Context $context)
 	{
-		if ($visitor instanceof XmlSerializationVisitor) {
-			return $visitor->visitSimpleString(number_format(($money->getAmount()) / 100, 2, '.', ""), $type, $context);
-		}
 		return $visitor->visitString(number_format(($money->getAmount()) / 100, 2, '.', ""), $type, $context);
 	}
 }
