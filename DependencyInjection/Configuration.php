@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Parses the kitpages_cms.block config section
+     * Parses the tbbc_money config section
      * Example for yaml driver:
      * tbbc_money:
      *     currencies: ["USD", "EUR"]
@@ -37,6 +37,7 @@ class Configuration implements ConfigurationInterface
      */
     private function addCurrencySection(ArrayNodeDefinition $node)
     {
+        // @codingStandardsIgnoreStart
         $node
             ->children()
                 ->arrayNode('currencies')
@@ -64,7 +65,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('ratio_provider')
                     ->cannotBeEmpty()
-                    ->defaultValue('tbbc_money.ratio_provider.rate_exchange')
+                    ->defaultValue('tbbc_money.ratio_provider.yahoo_finance')
                 ->end()
                 ->arrayNode('templating')
                     ->addDefaultsIfNotSet()
@@ -89,5 +90,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+        // @codingStandardsIgnoreEnd
     }
 }

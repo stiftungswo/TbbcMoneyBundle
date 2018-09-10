@@ -22,7 +22,7 @@ class BundleOrmTestCase
         $eventManager->addEventListener(array("preTestSetUp"), new SchemaSetupListener());
         
         $driver = new SimplifiedXmlDriver(array(
-            __DIR__ . '/../Resources/config/doctrine' => 'Tbbc\MoneyBundle\Entity'
+            __DIR__ . '/../Resources/config/doctrine/ratios' => 'Tbbc\MoneyBundle\Entity'
         ));
 
         // create config object

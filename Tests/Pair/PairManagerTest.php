@@ -4,14 +4,14 @@ namespace Tbbc\MoneyBundle\Tests\Pair;
 use Money\Money;
 use Tbbc\MoneyBundle\MoneyException;
 use Tbbc\MoneyBundle\Pair\PairManager;
-use Tbbc\MoneyBundle\Pair\PairManagerInterface;
-use Tbbc\MoneyBundle\Pair\RatioProvider\RateExchangeRatioProvider;
+use Tbbc\MoneyBundle\Pair\RatioProvider\StaticRatioProvider;
 use Tbbc\MoneyBundle\Pair\Storage\CsvStorage;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @group manager
  */
-class PairManagerTest extends \PHPUnit_Framework_TestCase
+class PairManagerTest extends TestCase
 {
     /** @var  PairManager */
     protected $manager;
@@ -23,7 +23,7 @@ class PairManagerTest extends \PHPUnit_Framework_TestCase
         exec("rm -rf ".escapeshellarg($dir));
         $storage = new CsvStorage($this->fileName, "EUR");
         // create EventDispatcher mock
-        $dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcher');
+        $dispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcher')->getMock();
 
         $this->manager = new PairManager(
             $storage,
@@ -107,14 +107,24 @@ class PairManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testRatioProvider()
     {
-        $provider = new RateExchangeRatioProvider();
+        //Provider
+        $provider = new StaticRatioProvider();
+        $provider->setRatio('EUR', 'USD', 1.08);
+        $provider->setRatio('EUR', 'CAD', 1.54);
+
+        //Store rates in manager
         $this->manager->setRatioProvider($provider);
         $this->manager->saveRatioListFromRatioProvider();
-        $ratio = $this->manager->getRelativeRatio("EUR", "USD");
-        $this->assertTrue($ratio > 0.3);
-        $this->assertTrue($ratio < 3);
-        $referenceRatio = $provider->fetchRatio("EUR", "CAD");
-        $this->assertEquals($referenceRatio, $this->manager->getRelativeRatio("EUR", "CAD"));
+
+        //Check saved rates
+        $this->assertSame(1.08, $this->manager->getRelativeRatio("EUR", "USD"));
+        $this->assertSame(1.54, $this->manager->getRelativeRatio("EUR", "CAD"));
+
+        //Change provider rates and make sure stored rates are not touched
+        $provider->setRatio('EUR', 'USD', 2.2);
+        $provider->setRatio('EUR', 'CAD', 1.83);
+        $this->assertSame(1.08, $this->manager->getRelativeRatio("EUR", "USD"));
+        $this->assertSame(1.54, $this->manager->getRelativeRatio("EUR", "CAD"));
     }
 
     /**
