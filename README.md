@@ -1,6 +1,8 @@
 TbbcMoneyBundle
 ===============
 
+:exclamation: Attention, this project is not maintained anymore! Please use the original version from the [TheBigBrainsCompany](https://github.com/TheBigBrainsCompany/TbbcMoneyBundle).
+
 Fork by Stiftung Wirtschaft & Ökologie
 -----------
 Changes:
